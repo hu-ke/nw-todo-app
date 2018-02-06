@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Sweet TODO Manager</title>
+    <link charset="utf-8" href="./assets/css/index.css" rel="stylesheet">
+  </head>
+  <body>
+    <div id="app">
+      <nav>
+        <div class="logo-wrap">
+          <img src="./assets/images/logo.png" alt="logo.png"/>
+        </div>
+        <h3 class="name">
+          Hi, <span style="color:#D63226;">{{ greetName }}</span>.
+          <template v-if="logged">
+            <a @click="logout">logout</a>
+          </template>
+          <template v-else>
+            <a @click="signinClick">sign in</a>
+            <a @click="signupClick">sign up</a>
+          </template>
+        </h3>
+        <ul>
+          <li :class="{active: status === 'TODO'}" @click="toggleStatus('TODO')">
+            ({{ getNum('TODO') }}) To do
+            <img src="./assets/images/todo.png" alt="todo.png"/>
+          </li>
+          <li :class="{active: status === 'COMPLETED'}" @click="toggleStatus('COMPLETED')">
+            ({{ getNum('COMPLETED') }}) Completed
+            <img src="./assets/images/complete.png" alt="complete.png"/>
+          </li>
+          <li :class="{active: status === 'DELETED'}" @click="toggleStatus('DELETED')">
+            ({{ getNum('DELETED') }}) Deleted
+            <img src="./assets/images/delete.png" alt="delete.png"/>
+          </li>
+        </ul>
+      </nav>
+      <div class="aside-main-wrap">
+        <aside>
+          <ul v-if="taskList && taskList.length > 0 || status === 'TODO'">
+            <li 
+              v-for="(task, index) in taskList" 
+              :class="{active: task.active}" 
+              :data-taskid="task.id"
+              @click="toggleTask(task)"
+              @contextmenu="openMenu"
+            >
+              <span v-if="renamingTask && task.id == taskId">
+                <input
+                  autofocus
+                  @blur="renamingCompleted(changedTaskName)"
+                  v-model="changedTaskName"
+                  type="text"
+                />
+              </span>
+              <template v-else="!renamingTask">
+                {{ task.name }}
+              </template>
+            </li>
+            <li 
+              v-if="status === 'TODO'"
+            >
+              <span 
+                @click="addNewTask" 
+                v-if="!namingNewTask"
+              >
+                <img class="add-icon" src="./assets/images/add.png" alt="add.png"/>
+              </span>
+              <span v-else>
+                <input
+                  autofocus
+                  @focus="onAddNewFocused"
+                  @blur="namingCompleted(newTaskName)"
+                  v-model="newTaskName"
+                  type="text"
+                />
+              </span>
+            </li>
+          </ul>
+          <h3 v-else class="no-tasks">
+            <template v-if="status === 'TODO'">
+              No Tasks To Do Yet :)
+            </template>
+            <template v-else-if="status === 'COMPLETED'">
+              No Tasks Completed Yet :)
+            </template>
+            <template v-else-if="status === 'DELETED'">
+              No Tasks In The Trash Bin Yet :)
+            </template>
+          </h3>
+        </aside>
+        <main>
+          <template v-if="status !== 'TODO'">
+            {{ mainContent }}
+          </template>
+          <textarea v-else @change="onContentEditing(mainContent)" v-model="mainContent"></textarea>
+        </main>
+      </div>
+      <template v-if="formShow">
+        <div class="shadow-cover" @click="hideForm()"></div>
+        <div class="form-wrap">
+          <p class="close"><span @click="hideForm()">X</span></p>
+          <input type="text" v-model="username"/>
+          <input type="text" v-model="password"/>
+          <button v-if="formAsLogin" @click="signin" :disabled="!fieldsFilled">Login</button>
+          <button v-else @click="signup" :disabled="!fieldsFilled">Register</button>
+          <p class="form-err-msg">{{ formErrMsg }}</p>
+        </div>
+      </template>
+      <template v-if="dialogShow">
+        <div class="shadow-cover" @click="hideDialog()"></div>
+        <div class="dialog-wrap">
+          <p class="close"><span @click="hideDialog()">X</span></p>
+          <p class="text">registration is successful, login as {{ username }} ?</p>
+          <div class="btn-group">
+            <button @click="hideDialog()" class="cancel">CANCEL</button>
+            <button @click="signinConfirm()" class="ok">OK</button>
+          </div>
+        </div>
+      </template>
+    </div>
+  </body>
+  <script src="./assets/js/fetch.js"></script>
+  <script src="./assets/js/vue.min.js"></script>
+  <script src="./assets/js/taskManager.js"></script>
+  <script src="./assets/js/index.js"></script>
+</html>

@@ -1,0 +1,30 @@
+{
+  "name": "test-mongoose",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "babel-node server.js",
+    "lint": "eslint ./server.js",
+    "test": "npm run mocha",
+    "mocha": "./node_modules/.bin/mocha --compilers js:babel-register --require babel-polyfill --exit"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "chai": "^4.1.2",
+    "supertest": "^3.0.0"
+  },
+  "dependencies": {
+    "blueimp-md5": "^2.10.0",
+    "koa": "^2.4.1",
+    "koa-body": "^2.5.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-jwt": "^3.3.0",
+    "koa-router": "^7.3.0",
+    "mongoose": "^5.0.2"
+  }
+}

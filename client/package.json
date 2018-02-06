@@ -1,0 +1,13 @@
+{
+  "name" : "nw-demo",
+  "main" : "index.html",
+  "description": "note/task manager",
+  "version": "0.0.1",
+  "keywords": [ "note manager", "task manager", "to do list", "to do manager", "nw", "node-webkit" ],
+  "window" : {
+    "toolbar": false,
+    "width": 900,
+    "min_width": 890,
+    "height": 700
+  }
+}
