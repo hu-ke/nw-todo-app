@@ -1,8 +1,7 @@
-# 记事本
-![](http://images.kenote.me/nw-images/logo.png)<br/>
+# 记事本 ![](http://images.kenote.me/nw-images/logo.png)
 🌲这是一个用node-webkit + vue2 + koa2 + mongodb开发的，可以实时编辑保存的桌面记事本。该项目分为两部分：桌面客户端(node-webkit) + 服务端(koa2)。🚀
 ## 效果
-![](app-screenshot.png)
+![](./client/app-screenshot.png)
 
 ## 源码地址
 https://github.com/hu-ke/nw-todo-app
