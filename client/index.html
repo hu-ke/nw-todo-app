@@ -93,7 +93,7 @@
           <template v-if="status !== 'TODO'">
             {{ mainContent }}
           </template>
-          <textarea v-else @change="onContentEditing(mainContent)" v-model="mainContent"></textarea>
+          <textarea v-else @input="onContentEditing(mainContent)" v-model="mainContent"></textarea>
         </main>
       </div>
       <template v-if="formShow">
